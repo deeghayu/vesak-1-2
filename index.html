@@ -119,19 +119,47 @@
             border-radius: 30px;
             padding: 30px;
             transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
             text-align: left;
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(10px);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
         }
 
         .card:hover {
             transform: translateY(-15px);
             border-color: var(--gold);
             box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 20px rgba(255, 215, 0, 0.1);
+        }
+
+        /* Video Card Play Button Overlay */
+        .card.video-card .img-container {
+            position: relative;
+        }
+        .card.video-card .img-container::after {
+            content: '▶';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            font-size: 3rem;
+            color: #000;
+            background: var(--gold);
+            width: 70px; height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-left: 5px;
+            box-shadow: 0 0 20px var(--gold);
+            opacity: 0.8;
+            transition: 0.3s;
+            z-index: 2;
+        }
+        .card.video-card:hover .img-container::after {
+            transform: translate(-50%, -50%) scale(1.1);
+            opacity: 1;
+            background: #fff;
+            box-shadow: 0 0 25px #fff;
         }
 
         .card img {
@@ -150,34 +178,13 @@
             margin: 0 0 12px 0;
         }
 
-        .card p { color: #bbb; line-height: 1.6; font-weight: 300; margin-bottom: 20px; }
+        .card p { color: #bbb; line-height: 1.6; font-weight: 300; }
 
-        /* Read More Button */
-        .read-more-btn {
-            background: transparent;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            color: var(--gold);
-            padding: 10px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-family: 'Noto Sans Sinhala', sans-serif;
-            font-size: 0.9rem;
-            transition: 0.3s;
-            align-self: flex-start;
-        }
-
-        .card:hover .read-more-btn {
-            background: var(--gold);
-            color: #000;
-            font-weight: 500;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-        }
-
-        /* 6. Modern Modal (Popup Window) */
+        /* 6. Modals (Popups) Styles */
         .modal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(15px);
             z-index: 100;
             display: flex;
@@ -196,9 +203,9 @@
         .modal-content {
             background: rgba(25, 20, 10, 0.95);
             border: 1px solid var(--gold);
-            max-width: 700px;
+            max-width: 750px;
             width: 90%;
-            max-height: 80vh;
+            max-height: 85vh;
             overflow-y: auto;
             border-radius: 30px;
             padding: 40px;
@@ -209,19 +216,40 @@
             text-align: left;
         }
 
+        .modal-content.video-content {
+            max-width: 850px;
+            padding: 20px;
+            background: #000;
+        }
+
         .modal.active .modal-content {
             transform: scale(1);
         }
 
         .close-btn {
             position: absolute;
-            top: 20px; right: 25px;
-            font-size: 2rem;
-            color: #888;
+            top: 15px; right: 20px;
+            font-size: 2.5rem;
+            color: #fff;
             cursor: pointer;
             transition: 0.3s;
+            z-index: 10;
+            line-height: 1;
         }
         .close-btn:hover { color: var(--gold); }
+
+        .video-box {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0; overflow: hidden;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            margin-top: 25px;
+        }
+        .video-box iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            border: none;
+        }
 
         .modal-content h2 {
             font-family: 'Abhaya Libre', serif;
@@ -232,18 +260,11 @@
             padding-bottom: 15px;
         }
 
-        .modal-body {
-            line-height: 1.8;
-            color: #ddd;
-            font-weight: 300;
-            font-size: 1.05rem;
-        }
-
+        .modal-body { line-height: 1.8; color: #ddd; font-weight: 300; font-size: 1.05rem; }
         .modal-body h4 { color: var(--gold); margin-top: 25px; margin-bottom: 10px; font-size: 1.2rem; }
         .modal-body ul { padding-left: 20px; }
         .modal-body li { margin-bottom: 8px; }
 
-        /* Custom Scrollbar for Modal */
         .modal-content::-webkit-scrollbar { width: 6px; }
         .modal-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
         .modal-content::-webkit-scrollbar-thumb { background: var(--deep-gold); border-radius: 10px; }
@@ -280,34 +301,24 @@
         </header>
 
         <div class="grid">
-            <!-- Card 1: Birth -->
-            <div class="card" data-aos="fade-up" data-aos-delay="100">
-                <div>
-                    <img src="https://i.ytimg.com/vi/hduMQXJkELU/hqdefault.jpg" alt="Birth">
-                    <h3>බෝසත් උත්පත්තිය</h3>
-                    <p>ලුම්බිණි සල් උයනේ සිදු වූ ඒ උතුම් ආශ්චර්යය සහ වෙසක් පොහෝ දිනක ලොවට සිදුවූ මහා ආලෝකය...</p>
+            <div class="card video-card" data-aos="fade-up" data-aos-delay="100" onclick="openModal('video-popup')">
+                <div class="img-container">
+                    <img src="https://i.ytimg.com/vi/SBRWnqemVJU/hqdefault.jpg" alt="Vesak Video">
                 </div>
-                <button class="read-more-btn" onclick="openModal('birth-modal')">තව දුරටත්</button>
+                <h3>බෝසත් උත්පත්තිය</h3>
+                <p>ලුම්බිණි සල් උයනේ සිදු වූ ඒ උතුම් ආශ්චර්යය සහ වෙසක් පොහෝ දිනක ලොවට සිදුවූ මහා ආලෝකය...</p>
             </div>
             
-            <!-- Card 2: Enlightenment -->
-            <div class="card" data-aos="fade-up" data-aos-delay="200">
-                <div>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9sWNfP1QWfxzlxtVKFtkSSEMgV-xieoE_4w&s" alt="Enlightenment">
-                    <h3>ලොව්තුරා බුද්ධත්වය</h3>
-                    <p>බුද්ධගයාවේදී මාර පරාජය කර චතුරාර්ය සත්‍යය අවබෝධ කර ගනිමින් බුදු වූ ඒ උතුම් මොහොත...</p>
-                </div>
-                <button class="read-more-btn" onclick="openModal('enlightenment-modal')">තව දුරටත්</button>
+            <div class="card" data-aos="fade-up" data-aos-delay="200" onclick="openModal('enlightenment-popup')">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9sWNfP1QWfxzlxtVKFtkSSEMgV-xieoE_4w&s" alt="Enlightenment">
+                <h3>ලොව්තුරා බුද්ධත්වය</h3>
+                <p>බුද්ධගයාවේදී මාර පරාජය කර... (සම්පූර්ණ විස්තරය කියවීමට ක්ලික් කරන්න)</p>
             </div>
 
-            <!-- Card 3: Parinirvana -->
-            <div class="card" data-aos="fade-up" data-aos-delay="300">
-                <div>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyqDaEsdklzgsFnBcB_8OMlNdkgVckCs2ZPg&s" alt="Parinirvana">
-                    <h3>මහා පිරිනිවන් පෑම</h3>
-                    <p>කුසිනාරා නුවරදී සංස්කාර ධර්මයන්ගේ අනිත්‍යතාව පසක් කරමින් පිරිනිවන් පෑ ඒ උතුම් ශාන්තිය...</p>
-                </div>
-                <button class="read-more-btn" onclick="openModal('parinirvana-modal')">තව දුරටත්</button>
+            <div class="card" data-aos="fade-up" data-aos-delay="300" onclick="openModal('parinirvana-popup')">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyqDaEsdklzgsFnBcB_8OMlNdkgVckCs2ZPg&s" alt="Parinirvana">
+                <h3>මහා පිරිනිවන් පෑම</h3>
+                <p>කුසිනාරා නුවරදී සංස්කාර... (සම්පූර්ණ විස්තරය කියවීමට ක්ලික් කරන්න)</p>
             </div>
         </div>
 
@@ -317,89 +328,48 @@
         </footer>
     </div>
 
-    <!-- Modal 1: Birth Content -->
-    <div id="birth-modal" class="modal" onclick="closeModal(event)">
-        <div class="modal-content">
-            <span class="close-btn" onclick="document.getElementById('birth-modal').classList.remove('active')">&times;</span>
-            <h2>ගෞතම බෝසත් උත්පත්තිය</h2>
-            <div class="modal-body">
-                <p>ගෞතම බුදුරජාණන් වහන්සේගේ (සිද්ධාර්ථ කුමරුන්ගේ) උත්පත්තිය ලුම්බිණි සල් උයනේදී වෙසක් පුන් පොහෝ දිනක සිදු විය. එය ලෝක ඉතිහාසයේ අතිවිශේෂ හා ආශ්චර්යමත් සිදුවීමක් ලෙස සැලකේ.</p>
-                
-                <h4>මව්කුස පිළිසිඳ ගැනීම</h4>
-                <p>මහාමායා දේවියගේ කුසින්, සුද්ධෝදන ਰජුගේ පුත්‍රයාණන් ලෙස පිළිසිඳ ගැනීම සිදුවිය. මව්කුස පිළිසිඳගත් මොහොතේ පටන් ලෝකයේ අපූර්ව ආශ්චර්යමත් සිදුවීම් රැසක් වාර්තා විය.</p>
-                
-                <h4>උපත සිදුවූ ආකාරය</h4>
-                <ul>
-                    <li><strong>ස්ථානය:</strong> නේපාලයේ පිහිටි ලුම්බිණි සල් උයන.</li>
-                    <li><strong>දිනය:</strong> වෙසක් පුන් පොහෝ දිනක්.</li>
-                    <li><strong>ක්‍රමය:</strong> මහාමායා දේවිය සිටගෙන සල් අත්තක් අල්ලාගෙන සිටියදී බෝසතාණන් වහන්සේ බිහි වූහ. පළමුවෙන්ම දෙවියන් විසින් රන් දැලකින් දරුවා පිළිගත් අතර, පසුව මිනිසුන් අතට පත්විය.</li>
-                </ul>
-
-                <h4>උපතේ ආශ්චර්යමත් කරුණු</h4>
-                <p>උපන් විගස කිසිවෙකුගේ ආධාරයකින් තොරව උතුරු දිශාවට පියවර හතක් වැඩම කළහ. උන්වහන්සේ වැඩම කළ සෑම පියවරකදීම උන්වහන්සේගේ දෙපා යට මනරම් නෙළුම් මල් පිපුණි.</p>
-                <p>අවසානයේ <em>"අග්ගෝ හමස්මි ලෝකස්මිං - ජෙට්ඨෝ හමස්මි ලෝකස්මිං - සෙට්ඨෝ හමස්මි ලෝකස්මිං"</em> (ලොවට මම අග්‍ර වෙමි, ජ්‍යෙෂ්ඨ වෙමි, ශ්‍රේෂ්ඨ වෙමි) යනුවෙන් සිංහනාදයක් පැවැත්වූහ.</p>
-
-                <h4>නම් තැබීම සහ අනාවැකිය</h4>
-                <p>ඉපදී දින පහකට පසු රාජකීය උත්සවයක් පවත්වා "සිද්ධාර්ථ" (සියලු අර්ථයන් ඉටු වන) යන නාමය තබන ලදී.</p>
-                <p><strong>අසිත තාපසතුමාගේ අනාවැකිය:</strong> කඳුකරයේ සිට පැමිණි තාපසවරයෙක් දරුවා දැක, මෙම කුමරු අනාගතයේදී එක්කෝ සක්විති රජෙකු වන බවත්, නැතහොත් සම්බුද්ධත්වයට පත්වන බවත් අනාවැකි පළ කළේය.</p>
-
-                <h4>සිදුවීමෙන් පසු</h4>
-                <p>බෝසතාණන් වහන්සේ බිහි වී දින හතකින් මහාමායා දේවිය අපවත් වූ අතර, ඉන්පසු කුමරුන් හදාවඩා ගැනීමේ කටයුතු ප්‍රජාපතී ගෝතමිය විසින් සිදු කරන ලදී.</p>
+    <div id="video-popup" class="modal" onclick="closeModal(event, 'video-popup')">
+        <div class="modal-content video-content">
+            <span class="close-btn" onclick="closeModal(null, 'video-popup')">&times;</span>
+            <div class="video-box">
+                <iframe id="yt-player" src="https://www.youtube.com/embed/SBRWnqemVJU?enablejsapi=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
         </div>
     </div>
 
-    <!-- Modal 2: Enlightenment Content -->
-    <div id="enlightenment-modal" class="modal" onclick="closeModal(event)">
+    <div id="enlightenment-popup" class="modal" onclick="closeModal(event, 'enlightenment-popup')">
         <div class="modal-content">
-            <span class="close-btn" onclick="document.getElementById('enlightenment-modal').classList.remove('active')">&times;</span>
+            <span class="close-btn" onclick="closeModal(null, 'enlightenment-popup')">&times;</span>
             <h2>ලොව්තුරා බුද්ධත්වය</h2>
             <div class="modal-body">
                 <p>ගෞතම බුදුරජාණන් වහන්සේ ලොව්තුරා බුද්ධත්වයට පත්වීම යනු ලෝකයේ ස්වභාවය හා දුකින් මිදීමේ මග වන චතුරාර්ය සත්‍යය අවබෝධ කර ගැනීමයි. උන්වහන්සේ දීර්ඝ කාලයක් පාරමිතා සම්පූර්ණ කර, වෙසක් පුර පසළොස්වකදා බුද්ධගයාවේදී ආනාපානසති භාවනාවෙන් මාර බල පරාජය කොට උතුම් සම්බුද්ධත්වයට පත් වූ සේක.</p>
-                
                 <h4>බුදුවීම හා ඒ ආශ්‍රිත කරුණු</h4>
                 <ul>
-                    <li><strong>මධ්‍යම ප්‍රතිපදාව අනුගමනය කිරීම:</strong> දැඩි දුෂ්කර ක්‍රියා අත්හැර, සිත එකඟ කරගනිමින් ආනාපානසති භාවනාව ඔස්සේ මධ්‍යම ප්‍රතිපදාව (අන්ත දෙකටම නොයා) අනුගමනය කිරීම.</li>
+                    <li><strong>මධ්‍යම ප්‍රතිපදාව අනුගමනය කිරීම:</strong> දැඩි දුෂ්කර ක්‍රියා අත්හැර, සිත එකඟ කරගනිමින් ආනාපානසති භාවනාව ඔස්සේ මධ්‍යම ප්‍රතිපදාව අනුගමනය කිරීම.</li>
                     <li><strong>මාර පරාජය:</strong> බුද්ධත්වය වැළැක්වීමට පැමිණි මාරයාගේ සේනා දසවිධ බාධක ජය ගනිමින් මාරයා පරාජය කිරීම.</li>
                 </ul>
-
                 <h4>බුද්ධත්වයේදී අවබෝධ කරගත් ප්‍රධාන කරුණු</h4>
                 <p>එදින රාත්‍රියේ සිද්ධාර්ථ තවුසාණන් විසින් ප්‍රධානතම ඥාන තුනක් ලබමින් සම්බුද්ධත්වයට පත් විය.</p>
                 <ol>
                     <li><strong>පූර්වේනිවාසානුස්මෘති ඥානය:</strong> පෙර විසූ ආත්ම භාවයන් පිළිබඳව සිහිපත් කිරීමේ හැකියාව.</li>
-                    <li><strong>චුතූපපාත ඥානය:</strong> සත්වයන්ගේ චුත වීම (මියයාම) සහ නැවත ඉපදීම පිළිබඳව අවබෝධය.</li>
-                    <li><strong>ආසවක්ඛය ඥානය:</strong> සියලු කෙලෙස් නසා දුකෙන් මිදීමේ මාර්ගය වන චතුරාර්ය සත්‍යය (දුක, දුකට හේතුව, දුක නැති කිරීම සහ දුක නැති කරන මාර්ගය) අවබෝධ කර ගැනීම.</li>
+                    <li><strong>චුතූපපාත ඥානය:</strong> සත්වයන්ගේ චුත වීම සහ නැවත ඉපදීම පිළිබඳව අවබෝධය.</li>
+                    <li><strong>ආසවක්ඛය ඥානය:</strong> සියලු කෙලෙස් නසා දුකෙන් මිදීමේ මාර්ගය වන චතුරාර්ය සත්‍යය අවබෝධ කර ගැනීම.</li>
                 </ol>
-
-                <h4>අවබෝධයේ ප්‍රතිඵලය</h4>
-                <p>මෙම සත්‍යයන් අවබෝධ කර ගැනීමත් සමඟ සියලු කෙලෙස්වලින් මිදී, ලොව්තුරා බුදුරජාණන් වහන්සේ නමක් ලෙස ලෝකයාට විමුක්තියේ මාවත පෙන්වා දීම සඳහා උන්වහන්සේ සුදුසුකම් ලැබූ සේක.</p>
             </div>
         </div>
     </div>
 
-    <!-- Modal 3: Parinirvana Content -->
-    <div id="parinirvana-modal" class="modal" onclick="closeModal(event)">
+    <div id="parinirvana-popup" class="modal" onclick="closeModal(event, 'parinirvana-popup')">
         <div class="modal-content">
-            <span class="close-btn" onclick="document.getElementById('parinirvana-modal').classList.remove('active')">&times;</span>
+            <span class="close-btn" onclick="closeModal(null, 'parinirvana-popup')">&times;</span>
             <h2>මහා සම්බුද්ධ පරිනිර්වාණය</h2>
             <div class="modal-body">
-                <p>මල්ල රාජධානිය යනු බුද්ධ කාලීන භාරතයේ පැවති සොළොස් මහා ජනපදවලින් එකකි. මෙහි අගනුවර වූයේ කුසිනාරා නුවරයි. මෙහි ස්වතන්ත්‍ර පාලන ගෙන යන ලද්දේ මල්ල රජ දරුවන් විසිනි.</p>
-                <p>මෙම රජ දරුවන්ට අයිති වූ උපවත්තන නම් සල් උයනක් හිරණ්‍යවතී සහ අචිරවතී ගංගාවල බටහිර ඉවුර අසල පිහිටා තිබුණේය. අලංකාර සල් ගසින් යුතු මෙම උයන ගව් ගණන් දුර ගෙවා යන්නෙකුට විවේක සුවය ලැබීමට සුදුසු වූ මනරම් උද්‍යානයක් වූවේය.</p>
-                
+                <p>අසුවස් එළඹි අප ගෞතම බුදුරාජාණන් වහන්සේ කුසිනාරා නුවර මල්ල රජ දරුවන්ගේ උපවත්තන සල් උයනෙහිදී වෙසක් පුන් පොහෝදා පිරිනිවන් පා වදාළ සේක.</p>
                 <h4>පරිනිර්වාණ මංචකය වෙත වැඩමවීම</h4>
-                <p>අසුවස් එළඹි අප ගෞතම බුදුරාජාණන් වහන්සේ විශාලා මහනුවරින් නික්මී භෝග නගරය පසු කොට පාවා නුවරට වැඩි සේක. එහිදී විවේක සුවයෙන් වෘක්ෂ ලතා මූලව වැඩසිටි උන් වහන්සේ දුටු පුක්කුසාති නම් රාජ පුත්‍රයා වැඳ එකත්පස්ව හිඳ ධර්මය ශ්‍රවණය කළේය. ඉන් පසු බුදු රජාණන් වහන්සේට රන්සළු පූජාවක් ද සිදු කළේය.</p>
-                <p>බුදුන් වහන්සේ යළිත් ගමන් ඇරඹි සේක. හිරණ්‍යවතී ගංගාව තරණය කර කුසිනාරා නුවරට වැඩියහ. විඩාවත්, රෝගී තත්ත්වයත් නිසා විවේක සුවය සඳහා මඟ නතර වූ බුදුරදුන් ගමන නිම කරන ලද්දේ කුසිනාරා නුවර මල්ල රජ දරුවන්ගේ උපවත්තන සල් උයනෙහිදිය.</p>
-                <p>බුදුන් වහන්සේ තුරුගොමුවලින් සපිරි උයනට පා ගමනින් වැඩම කළහ. එහිදී ඉතා උස් වූ සල්ගස් හතරක් සහිත භූමියක් දැක එහි ආසනයක් පිළියෙල කරන්නැයි අග්‍ර උපස්ථායක තනතුර දරූ අනඳ තෙරුන්ට පැවසූසේක.</p>
-                <p>එසේම අනඳ තෙරණුවෝ අරභයා සල් ගස් දෙකක් අතර උතුරට හිස සිටින ආකාරයේ සයනයක් සැකසිය යුතු බවටත් උපදෙස් දුන් සේක. අනඳ තෙරණුවෝ බුදුන් කී ආකාරයටම කළ සේක. එම සයනයෙහි සිංහ සෙයියාවෙන් සැතපුණු බුදුන් වහන්සේ වැඳ පුදා ගැනීමට අප්‍රමාණ වූ දෙව් දේවතාවෝ මනු ලොවට වැඩියහ. ඔවුහු සුවඳ මලින් හා දිව්‍ය සුගන්ධයෙන් මුනිඳු පිදූහ.</p>
-                
-                <h4>අවසාන දහම් දෙසීම සහ අවසන් බුදු වදන</h4>
-                <p>එදින රාත්‍රියෙහි පෙර යාමයේ මල්ල රජ දරුවන් සහිත වූ පිරිවරට දහම් දෙසූ සේක. ඉන් පසු මැදියම් රාත්‍රියෙහි සුභද්‍ර පරිබ්‍රාජකයාට ද දහම් දෙසූහ.</p>
-                <p style="background: rgba(255,215,0,0.05); padding: 15px; border-left: 3px solid var(--gold); font-style: italic;">"මහණෙනි, සියලු සංස්කාර ධර්මයෝ නැසෙන සුලුය. නොපමාව කුසල් දමෙහි යෙදෙන්න" යනුවෙන් අවසාන බුදු වදන වදාළ සේක.</p>
-                <p>ඉන් පසු පිළිවෙළින් ධ්‍යානයන්ට සම වැදුණ සමිඳාණෝ ඉන් නැගී සිට සැතපී සියලු සංස්කාරයන්හි අනිත්‍යතාව ලෝක සත්වයාට අවබෝධ කරමින් වෙසක් පුනු පොහෝදා අපවත් වූ සේක.</p>
-
-                <h4>ආදාහන පූජෝත්සවය</h4>
-                <p>සම්බුද්ධ පරිනිර්වාණය පිළිබඳ ශෝචනීය පුවත ඇසූ මල්ල රජ දරුවෝ බොහෝ ශෝක වූහ. බුදුන් වහන්සේගේ ශ්‍රී දේහයට දැක්විය යුතු සියලු පුද සැලකිලි දක්වා ආදාහන උත්සවයට කටයුතු සුදානම් කළහ.</p>
-                <p>එහිදී සම්බුද්ධ දේහය වටිනා වස්ත්‍ර දහසකින් වසා සත් රුවන් දෙනක බහා විසිතුරු මණ්ඩපයක تැන්පත් කිරීම සිදු විය. එම අවස්ථාවට පැමිණි සැදැහැවත් බෞද්ධයෝ සුවඳ මලින් සහ සුවඳ සුනු වලින් මුනිඳුන්ගේ ශ්‍රී දේහය පිදූහ. සතියක් පුරා මෙලෙසින් පූජා පවත්වා සිවිගෙය මහ පෙරහරකින් වඩමවා ගෙන ගියහ.</p>
+                <p>හිරණ්‍යවතී ගංගාව තරණය කර කුසිනාරා නුවරට වැඩියහ. විඩාවත්, රෝගී තත්ත්වයත් නිසා උපවත්තන සල් උයනෙහි අනඳ තෙරුන් ලවා සැකසූ සයනයෙහි සිංහ සෙයියාවෙන් සැතපුණු සේක.</p>
+                <h4>අවසාන බුදු වදන</h4>
+                <p style="background: rgba(255,215,0,0.05); padding: 15px; border-left: 3px solid var(--gold); font-style: italic;">"හන්දදානි භික්ඛවේ ආමන්තයාමි වෝ වයධම්මා සංඛාරා අප්පමාදේන සම්පාදේථා" (මහණෙනි, සියලු සංස්කාර ධර්මයෝ නැසෙන සුලුය. නොපමාව කුසල් දමෙහි යෙදෙන්න)</p>
+                <p>මෙලෙසින් අවසාන බුදු වදන වදාරා වෙසක් පුනු පොහෝදා අපවත් වූ සේක.</p>
             </div>
         </div>
     </div>
@@ -408,7 +378,7 @@
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // Generate Pahan (Floating Lights)
+        // Generate Pahan
         const container = document.getElementById('pahanContainer');
         function createPahan() {
             for (let i = 0; i < 40; i++) {
@@ -423,17 +393,24 @@
         }
         createPahan();
 
-        // Modal Control Functions
+        // Modal Open
         function openModal(modalId) {
             document.getElementById(modalId).classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent background scroll
+            document.body.style.overflow = 'hidden';
         }
 
-        function closeModal(event) {
-            // Close if clicked outside the content box
-            if (event.target.classList.contains('modal')) {
-                event.target.classList.remove('active');
+        // Modal Close
+        function closeModal(event, modalId) {
+            if (!event || event.target.classList.contains('modal') || event.target.classList.contains('close-btn')) {
+                const modal = document.getElementById(modalId);
+                modal.classList.remove('active');
                 document.body.style.overflow = 'auto';
+                
+                if (modalId === 'video-popup') {
+                    const iframe = document.getElementById('yt-player');
+                    const src = iframe.src;
+                    iframe.src = src; // Stop video play on close
+                }
             }
         }
     </script>
