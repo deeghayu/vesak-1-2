@@ -26,7 +26,7 @@
             scroll-behavior: smooth;
         }
 
-        /* 1. Animated Gradient Background */
+        /* Animated Gradient Background */
         .bg-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -37,7 +37,7 @@
             z-index: -2;
         }
 
-        /* 2. CSS Mandala Pattern */
+        /* CSS Mandala Pattern */
         .bg-chakra-art {
             position: fixed;
             top: 50%; left: 50%;
@@ -61,7 +61,7 @@
             to { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
-        /* 3. Floating Pahan */
+        /* Floating Pahan */
         .pahan {
             position: fixed;
             bottom: -10px;
@@ -80,7 +80,7 @@
             100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
         }
 
-        /* 4. Layout Styles */
+        /* Layout Styles */
         .container { max-width: 1200px; margin: 0 auto; padding: 80px 20px; text-align: center; }
 
         .main-icon {
@@ -118,16 +118,17 @@
             opacity: 0.9;
         }
 
-        /* 5. One Column / Stacked Cards Configuration */
+        /* Content Stack */
         .content-stack {
             display: flex;
             flex-direction: column;
-            gap: 60px;
+            gap: 40px;
             text-align: left;
             max-width: 900px;
             margin: 0 auto;
         }
 
+        /* Card Setup */
         .card {
             background: var(--card-bg);
             border: 1px solid rgba(255, 215, 0, 0.08);
@@ -135,41 +136,73 @@
             padding: 40px;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            overflow: hidden;
             backdrop-filter: blur(12px);
             box-shadow: 0 15px 35px rgba(0,0,0,0.4);
         }
 
         .card:hover {
-            transform: translateY(-4px);
             border-color: rgba(255, 215, 0, 0.2);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6), 0 0 30px rgba(255, 215, 0, 0.03);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
         }
 
         .card-header-block {
             display: flex;
             align-items: center;
             gap: 25px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        /* Read More Content Control */
+        .more-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.8s ease-in-out, opacity 0.5s ease-in-out;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .card.expanded .more-content {
+            max-height: 3000px; /* High value to allow full text expansion */
+            opacity: 1;
+            pointer-events: auto;
+            margin-top: 20px;
+        }
+
+        /* Read More Button */
+        .read-more-btn {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(184, 134, 11, 0.2));
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            color: var(--gold);
+            padding: 12px 28px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 12px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            transition: 0.3s ease;
+        }
+
+        .read-more-btn:hover {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+            transform: translateY(-2px);
         }
 
         /* Responsive Video Container */
         .video-container {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            padding-bottom: 56.25%;
             height: 0;
             border-radius: 18px;
             overflow: hidden;
             margin-bottom: 25px;
             border: 2px solid rgba(255, 215, 0, 0.15);
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            transition: 0.4s;
-        }
-        
-        .card:hover .video-container {
-            border-color: var(--gold);
         }
 
         .video-container iframe {
@@ -187,12 +220,6 @@
             border-radius: 18px;
             margin-bottom: 25px;
             border: 2px solid rgba(255, 215, 0, 0.15);
-            filter: sepia(15%) brightness(0.9);
-            transition: 0.4s;
-        }
-        .card:hover .card-img-static {
-            filter: sepia(0%) brightness(1);
-            border-color: var(--gold);
         }
 
         .card h3 {
@@ -200,20 +227,17 @@
             font-family: 'Abhaya Libre', serif;
             font-size: 2.3rem;
             margin: 0;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
         .card p { 
             color: #e0ded0; 
             line-height: 1.8; 
-            font-weight: 400; 
             font-size: 1.05rem;
             margin-top: 0;
             margin-bottom: 20px;
             text-align: justify;
         }
 
-        /* Sub sections inside cards */
         .section-title {
             color: var(--gold);
             font-size: 1.15rem;
@@ -224,27 +248,11 @@
             align-items: center;
             gap: 10px;
         }
-        .section-title::before {
-            content: '◆';
-            font-size: 0.8rem;
-            color: var(--deep-gold);
-        }
+        .section-title::before { content: '◆'; font-size: 0.8rem; color: var(--deep-gold); }
 
-        .card ul {
-            margin: 0 0 20px 0;
-            padding-left: 20px;
-        }
-
-        .card li {
-            color: #d1cfc0;
-            line-height: 1.7;
-            margin-bottom: 10px;
-            font-size: 1rem;
-        }
-
-        .card li strong {
-            color: #fff;
-        }
+        .card ul { margin: 0 0 20px 0; padding-left: 20px; }
+        .card li { color: #d1cfc0; line-height: 1.7; margin-bottom: 10px; }
+        .card li strong { color: #fff; }
 
         .quote-box {
             background: rgba(255, 215, 0, 0.04);
@@ -252,25 +260,19 @@
             padding: 15px 20px;
             margin: 25px 0;
             border-radius: 0 12px 12px 0;
-            font-style: italic;
         }
         .quote-box .pall {
             font-family: 'Abhaya Libre', serif;
             font-size: 1.3rem;
             color: var(--gold);
             display: block;
-            margin-bottom: 5px;
         }
-        .quote-box .meaning {
-            font-size: 0.95rem;
-            color: #bbb;
-        }
+        .quote-box .meaning { font-size: 0.95rem; color: #bbb; }
 
         footer {
             margin-top: 120px;
             padding: 60px 20px;
             border-top: 1px solid rgba(255, 215, 0, 0.05);
-            background: linear-gradient(to bottom, transparent, rgba(15,10,5,0.8));
         }
 
         .dev-badge {
@@ -281,31 +283,11 @@
             border: 1px solid rgba(255,215,0,0.15);
             color: var(--gold);
             text-decoration: none;
-            font-weight: 500;
-            letter-spacing: 1px;
-            transition: 0.3s;
-        }
-        .dev-badge:hover {
-            border-color: var(--gold);
-            background: rgba(255,215,0,0.05);
-            box-shadow: 0 0 15px rgba(255,215,0,0.1);
         }
 
-        .footer-sub {
-            margin-top: 20px; 
-            font-size: 0.85rem; 
-            color: #666; 
-            letter-spacing: 3px;
-            font-weight: 500;
-        }
+        .footer-sub { margin-top: 20px; font-size: 0.85rem; color: #666; letter-spacing: 3px; }
 
-        /* Responsive Fixes */
         @media (max-width: 600px) {
-            .card-header-block {
-                text-align: center;
-                justify-content: center;
-            }
-            .card p { text-align: left; }
             .container { padding: 40px 15px; }
             .card { padding: 25px; }
             .card-img-static { height: 200px; }
@@ -327,100 +309,94 @@
 
         <div class="content-stack">
             
-            <!-- CARD 1: බෝසත් උත්පත්තිය (YOUTUBE VIDEO - STARTS AT 29s) -->
-            <div class="card" data-aos="fade-up" data-aos-delay="100">
+            <!-- CARD 1: බෝසත් උත්පත්තිය -->
+            <div class="card" data-aos="fade-up" id="card1">
                 <div class="card-header-block">
                     <h3>උදාර බෝසත් උත්පත්තිය</h3>
                 </div>
                 
-                <!-- YouTube Embedded Player (start=29 එකතු කර ඇත) -->
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/hduMQXJkELU?start=29" title="බෝසත් උත්පත්තිය" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </div>
-
                 <p>ගෞතම බුදුරජාණන් වහන්සේගේ (සිද්ධාර්ථ කුමරුන්ගේ) උත්පත්තිය ලුම්බිණි සල් උයනේදී වෙසක් පුන් පොහෝ දිනක සිදු විය. එය ලෝක ඉතිහාසයේ අතිවිශේෂ හා ආශ්චර්යමත් සිදුවීමක් ලෙස සැලකේ.</p>
                 
-                <div class="section-title">මව්කුස පිළිසිඳ ගැනීම</div>
-                <p>මහාමායා දේවියගේ කුසින්, සුද්ධෝදන රජුගේ පුත්‍රයාණන් ලෙස පිළිසිඳ ගැනීම සිදුවිය. මව්කුස පිළිසිඳගත් මොහොතේ පටන් ලෝකයේ අපූර්ව ආශ්චර්යමත් සිදුවීම් රැසක් වාර්තා විය.</p>
-                
-                <div class="section-title">උපත සිදුවූ ආකාරය</div>
-                <ul>
-                    <li><strong>ස්ථානය:</strong> නේපාලයේ පිහිටි ලුම්බිණි සල් උයන.</li>
-                    <li><strong>දිනය:</strong> වෙසක් පුන් පොහෝ දිනක්.</li>
-                    <li><strong>ක්‍රමය:</strong> මහාමායා දේවිය සිටගෙන සල් අත්තක් අල්ලාගෙන සිටියදී බෝසතාණන් වහන්සේ බිහි වූහ. පළමුවෙන්ම දෙවියන් විසින් ਰන් දැලකින් දරුවා පිළිගත් අතර, පසුව මිනිසුන් අතට පත්විය.</li>
-                </ul>
+                <!-- Read More Content -->
+                <div class="more-content">
+                    <!-- YouTube Embedded Player (භූතෝපාය මාර්ගයෙන් තත්පර 29න් ප්ලේ වීමට සකසා ඇත) -->
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/hduMQXJkELU?start=29&autoplay=0&rel=0" title="බෝසත් උත්පත්තිය" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
 
-                <div class="section-title">උපතේ ආශ්චර්යමත් කරුණු</div>
-                <ul>
-                    <li>උපන් විගස කිසිවෙකුගේ ආධාරයකින් තොරව උතුරු දිශාවට පියවර හතක් වැඩම කළහ.</li>
-                    <li>උන්වහන්සේ වැඩම කළ සෑම පියවරකදීම උන්වහන්සේගේ දෙපා යට මනරම් නෙළුම් මල් පිපුණි.</li>
-                </ul>
+                    <div class="section-title">මව්කුස පිළිසිඳ ගැනීම</div>
+                    <p>මහාමායා දේවියගේ කුසින්, සුද්ධෝදන රජුගේ පුත්‍රයාණන් ලෙස පිළිසිඳ ගැනීම සිදුවිය. මව්කුස පිළිසිඳගත් මොහොතේ පටන් ලෝකයේ අපූර්ව ආශ්චර්යමත් සිදුවීම් රැසක් වාර්තා විය.</p>
+                    
+                    <div class="section-title">උපත සිදුවූ ආකාරය</div>
+                    <ul>
+                        <li><strong>ස්ථානය:</strong> නේපාලයේ පිහිටි ලුම්බිණි සල් උයන.</li>
+                        <li><strong>දිනය:</strong> වෙසක් පුන් පොහෝ දිනක්.</li>
+                        <li><strong>ක්‍රමය:</strong> මහාමායා දේවිය සිටගෙන සල් අත්තක් අල්ලාගෙන සිටියදී බෝසතාණන් වහන්සේ බිහි වූහ.</li>
+                    </ul>
 
-                <div class="quote-box">
-                    <span class="pall">"අග්ගෝ හමස්මි ලෝකස්මිං - ජෙට්ඨෝ හමස්මි ලෝකස්මිං - සෙට්ඨෝ හමස්මි ලෝකස්මිං"</span>
-                    <span class="meaning">(ලොවට මම අග්‍ර වෙමි, ජ්‍යෙෂ්ඨ වෙමි, ශ්‍රේෂ්ඨ වෙමි) යනුවෙන් සිංහනාදයක් පැවැත්වූහ.</span>
+                    <div class="section-title">උපතේ ආශ්චර්යමත් කරුණු</div>
+                    <ul>
+                        <li>උපන් විගස කිසිවෙකුගේ ආධාරයකින් තොරව උතුරු දිශාවට පියවර හතක් වැඩම කළහ.</li>
+                        <li>උන්වහන්සේ වැඩම කළ සෑම පියවරකදීම උන්වහන්සේගේ දෙපා යට මනරම් නෙළුම් මල් පිපුණි.</li>
+                    </ul>
+
+                    <div class="quote-box">
+                        <span class="pall">"අග්ගෝ හමස්මි ලෝකස්මිං - ජෙට්ඨෝ හමස්මි ලෝකස්මිං - සෙට්ඨෝ හමස්මි ලෝකස්මිං"</span>
+                        <span class="meaning">(ලොවට මම අග්‍ර වෙමි, ජ්‍යෙෂ්ඨ වෙමි, ශ්‍රේෂ්ඨ වෙමි) යනුවෙන් සිංහනාදයක් පැවැත්වූහ.</span>
+                    </div>
                 </div>
 
-                <div class="section-title">නම් තැබීම සහ අනාවැකිය</div>
-                <p>ඉපදී දින පහකට පසු රාජකීය උත්සවයක් පවත්වා "සිද්ධාර්ථ" (සියලු අර්ථයන් ඉටු වන) යන නාමය තබන ලදී. කඳුකරයේ සිට පැමිණි අසිත තාපසතුමා දරුවා දැක, මෙම කුමරු අනාගතයේදී එක්කෝ සක්විති රජෙකු වන බවත්, නැතහොත් සම්බුද්ධත්වයට පත්වන බවත් අනාවැකි පළ කළේය.</p>
-
-                <div class="section-title">සිදුවීමෙන් පසු</div>
-                <p>බෝසතාණන් වහන්සේ බිහි වී දින හතකින් මහාමායා දේවිය අපවත් වූ අතර, ඉන්පසු කුමරුන් හදාවඩා ගැනීමේ කටයුතු ප්‍රජාපතී ගෝතමිය විසින් සිදු කරන ලදී.</p>
+                <button class="read-more-btn" onclick="toggleCard('card1')">Read More ▾</button>
             </div>
             
             <!-- CARD 2: ලොව්තුරා බුද්ධත්වය -->
-            <div class="card" data-aos="fade-up" data-aos-delay="150">
+            <div class="card" data-aos="fade-up" id="card2">
                 <div class="card-header-block">
                     <h3>උතුම් ලොව්තුරා බුද්ධත්වය</h3>
                 </div>
 
-                <img class="card-img-static" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9sWNfP1QWfxzlxtVKFtkSSEMgV-xieoE_4w&s" alt="Enlightenment">
-
-                <p>ගෞතම බුදුරජාණන් වහන්සේ ලොව්තුරා බුද්ධත්වයට පත්වීම යනු ලෝකයේ ස්වභාවය හා දුකින් මිදීමේ මග වන චතුරාර්ය සත්‍යය අවබෝධ කර ගැනීමයි. උන්වහන්සේ දීර්ඝ කාලයක් පාරමිතා සම්පූර්ණ කර, වෙසක් පුර පසළොස්වකදා බුද්ධගයාවේදී ආනාපානසති භාවනාවෙන් මාර බල පරාජය කොට උතුම් සම්බුද්ධත්වයට පත් වූ සේක.</p>
+                <p>ගෞතම බුදුරජාණන් වහන්සේ ලොව්තුරා බුද්ධත්වයට පත්වීම යනු ලෝකයේ ස්වභාවය හා දුකින් මිදීමේ මග වන චතුරාර්ය සත්‍යය අවබෝධ කර ගැනීමයි.</p>
                 
-                <div class="section-title">මධ්‍යම ප්‍රතිපදාව අනුගමනය කිරීම</div>
-                <p>දැඩි දුෂ්කර ක්‍රියා අත්හැර, සිත එකඟ කරගනිමින් ආනාපානසති භාවනාව ඔස්සේ මධ්‍යම ප්‍රතිපදාව (අන්ත දෙකටම නොයා) අනුගමනය කිරීම සිදු කරන ලදී.</p>
+                <!-- Read More Content -->
+                <div class="more-content">
+                    <img class="card-img-static" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9sWNfP1QWfxzlxtVKFtkSSEMgV-xieoE_4w&s" alt="Enlightenment">
+                    
+                    <div class="section-title">මධ්‍යම ප්‍රතිපදාව</div>
+                    <p>දැඩි දුෂ්කර ක්‍රියා අත්හැර, සිත එකඟ කරගනිමින් ආනාපානසති භාවනාව ඔස්සේ මධ්‍යම ප්‍රතිපදාව අනුගමනය කිරීම සිදු කරන ලදී. වෙසක් පුර පසළොස්වකදා බුද්ධගයාවේදී මාර බල පරාජය කොට උතුම් සම්බුද්ධත්වයට පත් වූ සේක.</p>
 
-                <div class="section-title">මාර පරාජය</div>
-                <p>බුද්ධත්වය වැළැක්වීමට පැමිණි මාරයාගේ සේනා දසවිධ බාධක ජය ගනිමින් මාරයා පරාජය කිරීම මෙහිදී සිදුවිය.</p>
+                    <div class="section-title">බුද්ධත්වයේදී අවබෝධ කරගත් ප්‍රධාන ඥාන</div>
+                    <ul>
+                        <li><strong>පූර්වේනිවාසානුස්මෘති ඥනය:</strong> පෙර විසූ ආත්ම භාවයන් පිළිබඳව සිහිපත් කිරීමේ හැකියාව.</li>
+                        <li><strong>චුතූපපාත ඥානය:</strong> සත්වයන්ගේ මියයාම සහ නැවත ඉපදීම පිළිබඳව අවබෝධය.</li>
+                        <li><strong>ආසවක්ඛය ඥානය:</strong> සියලු කෙලෙස් නසා දුකෙන් මිදීමේ මාර්ගය වන චතුරාර්ය සත්‍යය අවබෝධ කර ගැනීම.</li>
+                    </ul>
+                </div>
 
-                <div class="section-title">බුද්ධත්වයේදී අවබෝධ කරගත් ප්‍රධාන ඥාන</div>
-                <p>එදින රාත්‍රියේ סיද්ධාර්ථ තවුසාණන් විසින් ප්‍රධානතම ඥාන තුනක් ලබමින් සම්බුද්ධත්වයට පත් විය:</p>
-                <ul>
-                    <li><strong>පූර්වේනිවාසානුස්මෘති ඥානය:</strong> පෙර විසූ ආත්ම භාවයන් පිළිබඳව සිහිපත් කිරීමේ හැකියාව.</li>
-                    <li><strong>චුතූපපාත ඥානය:</strong> සත්වයන්ගේ චුත වීම (මියයාම) සහ නැවත ඉපදීම පිළිබඳව අවබෝධය.</li>
-                    <li><strong>ආසවක්ඛය ඥානය:</strong> සියලු කෙලෙස් නසා දුකෙන් මිදීමේ මාර්ගය වන චතුරාර්ය සත්‍යය (දුක, දුකට හේතුව, දුක නැති කිරීම සහ දුක නැති කරන මාර්ගය) අවබෝධ කර ගැනීම.</li>
-                </ul>
-
-                <div class="section-title">අවබෝධයේ ප්‍රතිඵලය</div>
-                <p>මෙම සත්‍යයන් අවබෝධ කර ගැනීමත් සමඟ සියලු කෙලෙස්වලින් මිදී, ලොව්තුරා බුදුරජාණන් වහන්සේ නමක් ලෙස ලෝකයාට විමුක්තියේ මාවත පෙන්වා දීම සඳහා උන්වහන්සේ සුදුසුකම් ලැබූ සේක.</p>
+                <button class="read-more-btn" onclick="toggleCard('card2')">Read More ▾</button>
             </div>
 
             <!-- CARD 3: මහා පිරිනිවන් පෑම -->
-            <div class="card" data-aos="fade-up" data-aos-delay="200">
+            <div class="card" data-aos="fade-up" id="card3">
                 <div class="card-header-block">
                     <h3>මහා පිරිනිවන් පෑම</h3>
                 </div>
 
-                <img class="card-img-static" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyqDaEsdklzgsFnBcB_8OMlNdkgVckCs2ZPg&s" alt="Parinirvana">
-
-                <p>මල්ල රාජධානිය යනු බුද්ධ කාලීන භාරතයේ පැවති සොළොස් මහා ජනපදවලින් එකකි. මෙහි අගනුවර වූයේ කුසිනාරා නුවරයි. මෙහි ස්වතන්ත්‍ර පාලන ගෙන යන ලද්දේ මල්ල රජ දරුවන් විසිනි. මෙම රජ දරුවන්ට අයිති වූ උපවත්තන නම් සල් උයනක් හිරණ්‍යවතී සහ අචිරවතී ගංගාවල බටහිර ඉවුර අසල පිහිටා තිබුණේය. අලංකාර සල් ගසින් යුතු මෙම උයන ගව් ගණන් දුර ගෙවා යන්නෙකුට විවේක සුවය ලැබීමට සුදුසු වූ මනරම් උද්‍යානයක් වූවේය.</p>
+                <p>අසුවස් එළඹි අප ගෞතම බුදුරාජාණන් වහන්සේ කුසිනාරා නුවර මල්ල රජ දරුවන්ගේ උපවත්තන සල් උයනෙහිදී මහා පිරිනිවන් පෑම සිදුකළ සේක.</p>
                 
-                <div class="section-title">පිරිනිවන් මංචකය කරා වැඩමවීම</div>
-                <p>අසුවස් එළඹි අප ගෞතම බුදුරාජාණන් වහන්සේ විශාලා මහනුවරින් නික්මී භෝග නගරය පසු කොට පාවා නුවරට වැඩි සේක. එහිදී විවේක සුවයෙන් වෘක්ෂ ලතා මූලව වැඩසිටි උන් වහන්සේට පුක්කුසාති නම් රාජ පුත්‍රයා වැඳ එකත්පස්ව හිඳ ධර්මය ශ්‍රවණය කළේය. ඉන් පසු බුදු රජාණන් වහන්සේට රන්සළු පූජාවක් ද සිදු කළේය.</p>
-                <p>බුදුන් වහන්සේ යළිත් ගමන් ඇරඹි සේක. හිරණ්‍යවතී ගංගාව තරණය කර කුසිනාරා නුවරට වැඩියහ. විඩාවත්, ਰෝගී තත්ත්වයත් නිසා විවේක සුවය සඳහා මඟ නතර වූ බුදුරදුන් ගමන නිම කරන ලද්දේ කුසිනාරා නුවර මල්ල රජ දරුවන්ගේ උපවත්තන සල් උයනෙහිදිය.</p>
-                <p>බුදුන් වහන්සේ තුරුගොමුවලින් සපිරි උයනට පා ගමනින් වැඩම කළහ. එහිදී ඉතා උස් වූ සල්ගස් හතරක් සහිත භූමියක් දැක එහි ආසනයක් පිළියෙල කරන්නැයි අග්‍ර උපස්ථායක තනතුර දරූ අනඳ තෙරුන්ට පැවසූසේක. එසේම අනඳ තෙරණුවෝ අරභයා සල් ගස් දෙකක් අතර උතුරට හිස සිටින ආකාරයේ සයනයක් සැකසිය යුතු බවටත් උපදෙස් දුන් සේක. අනඳ තෙරණුවෝ බුදුන් කී ආකාරයටම කළ සේක. එම සයනයෙහි සිංහ සෙයියාවෙන් සැතපුණු බුදුන් වහන්සේ වැඳ පුදා ගැනීමට අප්‍රමාණ වූ දෙව් දේවතාවෝ මනු ලොවට වැඩියහ. ඔවුහු සුවඳ මලින් හා දිව්‍ය සුගන්ධයෙන් මුනිඳු පිදූහ.</p>
+                <!-- Read More Content -->
+                <div class="more-content">
+                    <img class="card-img-static" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyqDaEsdklzgsFnBcB_8OMlNdkgVckCs2ZPg&s" alt="Parinirvana">
+                    
+                    <div class="section-title">පිරිනිවන් මංචකය</div>
+                    <p>සල් ගස් දෙකක් අතර උතුරට හිස සිටින ආකාරයේ සැකසූ සයනයෙහි සිංහ සෙයියාවෙන් සැතපුණු බුදුන් වහන්සේ වැඳ පුදා ගැනීමට අප්‍රමාණ වූ දෙව් දේවතාවෝ මනු ලොවට වැඩියහ.</p>
 
-                <div class="section-title">අවසාන දේශනාවන් සහ බුදු වදන</div>
-                <p>එදින රාත්‍රියෙහි පෙර යාමයේ මල්ල රජ දරුවන් සහිත වූ පිරිවරට දහම් දෙසූ සේක. ඉන් පසු මැදියම් රාත්‍රියෙහි සුභද්‍ර පරිබ්‍රාජකයාට ද දහම් දෙසූහ.</p>
-                <div class="quote-box">
-                    <span class="pall">"හන්දදානි භික්ඛවේ ආමන්තයාමි වෝ, වයධම්මා සංඛාරා, අප්පමාදේන සම්පාදේථ"</span>
-                    <span class="meaning">“මහණෙනි, සියලු සංස්කාර ධර්මයෝ නැසෙන සුලුය. නොපමාව කුසල් දමෙහි යෙදෙන්න” යනුවෙන් අවසාන බුදු වදන වදාළ සේක.</span>
+                    <div class="quote-box">
+                        <span class="pall">"හන්දදානි භික්ඛවේ ආමන්තයාමි වෝ, වයධම්මා සංඛාරා, අප්පමාදේන සම්පාදේථ"</span>
+                        <span class="meaning">“මහණෙනි, සියලු සංස්කාර ධර්මයෝ නැසෙන සුලුය. නොපමාව කුසල් දමෙහි යෙදෙන්න” යනුවෙන් අවසාන බුදු වදන වදාළ සේක.</span>
+                    </div>
                 </div>
-                <p>ඉන් පසු පිළිවෙළින් ධ්‍යානයන්ට සම වැදුණ සමිඳාණෝ ඉන් නැගී සිට සැතපී සියලු සංස්කාරයන්හි අනිත්‍යතාව ලෝක සත්වයාට අවබෝධ කරමින් වෙසක් පුනු පොහෝදා අපවත් වූ සේක.</p>
 
-                <div class="section-title">ආදාහන පූජෝත්සවය</div>
-                <p>සම්බුද්ධ පරිනිර්වාණය පිළිබඳ ශෝචනීය පුවත ඇසූ මල්ල රජ දරුවෝ බොහෝ ශෝක වූහ. බුදුන් වහන්සේගේ ශ්‍රී දේහයට දැක්විය යුතු සියලු පුද සැලකිලි දක්වා ආදාහන උත්සවයට කටයුතු සුදානම් කළහ. එහිදී සම්බුද්ධ දේහය වටිනා වස්ත්‍ර දහසකින් වසා සත් රුවන් දෙනක බහා විසිතුරු මණ්ඩපයක තැන්පත් කිරීම සිදු විය. එම අවස්ථාවට පැමිණි සැදැහැවත් බෞද්ධයෝ සුවඳ මලින් සහ සුවඳ සුනුවලින් මුනිඳුන්ගේ ශ්‍රී දේහය පිදූහ. සතියක් පුරා මෙලෙසින් පූජා පවත්වා සිවිගෙය මහා පෙරහරකින් වඩමවා ගෙන ගියහ.</p>
+                <button class="read-more-btn" onclick="toggleCard('card3')">Read More ▾</button>
             </div>
 
         </div>
@@ -434,14 +410,25 @@
     <!-- AOS JS for Animations -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize Scroll Animations
-        AOS.init({ 
-            duration: 1200, 
-            once: true,
-            offset: 100
-        });
+        AOS.init({ duration: 1200, once: true, offset: 100 });
 
-        // Generate Pahan (Floating Lights) smoothly
+        // Function to Expand/Collapse Cards
+        function toggleCard(cardId) {
+            const card = document.getElementById(cardId);
+            const btn = card.querySelector('.read-more-btn');
+            
+            card.classList.toggle('expanded');
+            
+            if (card.classList.contains('expanded')) {
+                btn.innerHTML = 'Read Less ▴';
+            } else {
+                btn.innerHTML = 'Read More ▾';
+                // Scroll back to card top smoothly when closing
+                card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        // Generate Pahan (Floating Lights)
         const container = document.getElementById('pahanContainer');
         function createPahan() {
             const pahanCount = 35; 
