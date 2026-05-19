@@ -10,8 +10,9 @@
 
         :root {
             --gold: #ffd700;
-            --deep-gold: #b8860b;
-            --bg-dark: #050300;
+            --deep-gold: #ffaa00;
+            --gold-glow: rgba(255, 215, 0, 0.15);
+            --bg-dark: #070501;
         }
 
         body, html {
@@ -20,34 +21,39 @@
             color: #fff;
             font-family: 'Noto Sans Sinhala', sans-serif;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* 1. Animated Gradient Background */
+        /* 1. Rich Animated Gradient Background */
         .bg-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(255, 153, 0, 0.05) 0%, transparent 40%);
+                radial-gradient(circle at 10% 20%, rgba(255, 215, 0, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(255, 170, 0, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(7, 5, 1, 1) 0%, rgba(0, 0, 0, 1) 100%);
             z-index: -2;
         }
 
-        /* 2. CSS Mandala Pattern */
+        /* 2. Enhanced CSS Mandala Pattern */
         .bg-chakra-art {
             position: fixed;
             top: 50%; left: 50%;
-            width: 600px; height: 600px;
-            border: 2px dashed rgba(255, 215, 0, 0.03);
+            width: 650px; height: 650px;
+            border: 1px dashed rgba(255, 215, 0, 0.05);
             border-radius: 50%;
             transform: translate(-50%, -50%);
             z-index: -1;
-            animation: slowRotate 60s linear infinite;
+            animation: slowRotate 80s linear infinite;
+            pointer-events: none;
         }
         .bg-chakra-art::after {
             content: '☸';
             position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 400px; color: rgba(255, 215, 0, 0.02);
+            font-size: 450px; 
+            color: rgba(255, 215, 0, 0.015);
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.02);
         }
 
         @keyframes slowRotate {
@@ -55,235 +61,191 @@
             to { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
-        /* 3. Floating Pahan */
+        /* 3. Smooth Floating Pahan (CSS Glows) */
         .pahan {
             position: fixed;
-            width: 4px; height: 4px;
-            background: var(--gold);
+            width: 5px; height: 5px;
+            background: linear-gradient(135deg, #fff, var(--gold));
             border-radius: 50%;
-            box-shadow: 0 0 15px 2px var(--gold);
+            box-shadow: 0 0 12px 3px var(--gold), 0 0 20px 6px var(--deep-gold);
             z-index: 1;
             animation: floatUp linear infinite;
+            pointer-events: none;
         }
 
         @keyframes floatUp {
             0% { transform: translateY(105vh) scale(0); opacity: 0; }
-            50% { opacity: 0.8; }
-            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
 
-        /* 4. Layout Styles */
-        .container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; text-align: center; }
+        /* 4. Main Layout & Header */
+        .container { max-width: 1200px; margin: 0 auto; padding: 80px 20px; text-align: center; }
 
         .main-icon {
-            font-size: 5rem;
+            font-size: 5.5rem;
             color: var(--gold);
-            filter: drop-shadow(0 0 20px var(--gold));
-            animation: pulse 3s ease-in-out infinite;
+            display: inline-block;
+            background: linear-gradient(to bottom, #fff, var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.4));
+            animation: pulse 4s ease-in-out infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.1); opacity: 1; }
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3)); }
+            50% { transform: scale(1.05); filter: drop-shadow(0 0 35px rgba(255, 170, 0, 0.5)); }
         }
 
         h1 {
             font-family: 'Abhaya Libre', serif;
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            background: linear-gradient(to bottom, #fff, var(--gold), var(--deep-gold));
+            font-size: clamp(2.8rem, 8vw, 4.8rem);
+            font-weight: 700;
+            background: linear-gradient(to bottom, #ffffff 30%, var(--gold) 70%, var(--deep-gold) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin: 10px 0;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+            margin: 15px 0 5px 0;
+            letter-spacing: 1px;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.7));
         }
 
         .sub-header {
-            color: #888;
+            color: rgba(255, 255, 255, 0.5);
             font-size: 1.1rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 60px;
+            letter-spacing: 3px;
+            word-spacing: 2px;
+            margin-bottom: 70px;
             display: block;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
-        /* 5. Modern Cards */
+        /* 5. Premium Glassmorphism Cards */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 40px;
+            padding: 10px;
         }
 
         .card {
-            background: rgba(15, 10, 0, 0.7);
-            border: 1px solid rgba(255, 215, 0, 0.1);
-            border-radius: 30px;
-            padding: 30px;
-            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, rgba(20, 15, 5, 0.6) 0%, rgba(10, 7, 2, 0.8) 100%);
+            border: 1px solid rgba(255, 215, 0, 0.08);
+            border-radius: 24px;
+            padding: 24px;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
             cursor: pointer;
             text-align: left;
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(225deg, transparent 60%, rgba(255, 215, 0, 0.03) 100%);
+            pointer-events: none;
         }
 
         .card:hover {
-            transform: translateY(-15px);
-            border-color: var(--gold);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 20px rgba(255, 215, 0, 0.1);
+            transform: translateY(-12px);
+            border-color: rgba(255, 215, 0, 0.3);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 30px var(--gold-glow);
         }
 
-        /* Video Card Play Button Overlay */
-        .card.video-card .img-container {
-            position: relative;
-        }
-        .card.video-card .img-container::after {
-            content: '▶';
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%) scale(1);
-            font-size: 3rem;
-            color: #000;
-            background: var(--gold);
-            width: 70px; height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-left: 5px;
-            box-shadow: 0 0 20px var(--gold);
-            opacity: 0.8;
-            transition: 0.3s;
-            z-index: 2;
-        }
-        .card.video-card:hover .img-container::after {
-            transform: translate(-50%, -50%) scale(1.1);
-            opacity: 1;
-            background: #fff;
-            box-shadow: 0 0 25px #fff;
+        .card-img-wrapper {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            border-radius: 16px;
+            margin-bottom: 22px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
         }
 
         .card img {
-            width: 100%; height: 230px;
-            object-fit: cover; border-radius: 20px;
-            margin-bottom: 25px;
-            filter: sepia(30%) brightness(0.8);
-            transition: 0.5s;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%) sepia(15%) brightness(0.85);
+            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
         }
-        .card:hover img { filter: sepia(0%) brightness(1); }
+
+        .card:hover img { 
+            filter: grayscale(0%) sepia(0%) brightness(1.05);
+            transform: scale(1.06);
+        }
 
         .card h3 {
             color: var(--gold);
             font-family: 'Abhaya Libre', serif;
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             margin: 0 0 12px 0;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
         }
 
-        .card p { color: #bbb; line-height: 1.6; font-weight: 300; }
-
-        /* 6. Modals (Popups) Styles */
-        .modal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(15px);
-            z-index: 100;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
+        .card p { 
+            color: rgba(255, 255, 255, 0.7); 
+            line-height: 1.7; 
+            font-weight: 300; 
+            font-size: 0.98rem;
+            margin: 0;
         }
 
-        .modal.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .modal-content {
-            background: rgba(25, 20, 10, 0.95);
-            border: 1px solid var(--gold);
-            max-width: 750px;
-            width: 90%;
-            max-height: 85vh;
-            overflow-y: auto;
-            border-radius: 30px;
-            padding: 40px;
-            position: relative;
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.15);
-            transform: scale(0.8);
-            transition: transform 0.4s ease;
-            text-align: left;
-        }
-
-        .modal-content.video-content {
-            max-width: 850px;
-            padding: 20px;
-            background: #000;
-        }
-
-        .modal.active .modal-content {
-            transform: scale(1);
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 15px; right: 20px;
-            font-size: 2.5rem;
-            color: #fff;
-            cursor: pointer;
-            transition: 0.3s;
-            z-index: 10;
-            line-height: 1;
-        }
-        .close-btn:hover { color: var(--gold); }
-
-        .video-box {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0; overflow: hidden;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            margin-top: 25px;
-        }
-        .video-box iframe {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            border: none;
-        }
-
-        .modal-content h2 {
-            font-family: 'Abhaya Libre', serif;
-            color: var(--gold);
-            font-size: 2.2rem;
-            margin-top: 0;
-            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
-            padding-bottom: 15px;
-        }
-
-        .modal-body { line-height: 1.8; color: #ddd; font-weight: 300; font-size: 1.05rem; }
-        .modal-body h4 { color: var(--gold); margin-top: 25px; margin-bottom: 10px; font-size: 1.2rem; }
-        .modal-body ul { padding-left: 20px; }
-        .modal-body li { margin-bottom: 8px; }
-
-        .modal-content::-webkit-scrollbar { width: 6px; }
-        .modal-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
-        .modal-content::-webkit-scrollbar-thumb { background: var(--deep-gold); border-radius: 10px; }
-
+        /* 6. Footer Styles */
         footer {
-            margin-top: 100px;
-            padding: 60px 20px;
-            border-top: 1px solid rgba(255, 215, 0, 0.05);
+            margin-top: 120px;
+            padding: 60px 20px 20px 20px;
+            border-top: 1px solid rgba(255, 215, 0, 0.03);
+            position: relative;
         }
 
         .dev-badge {
             display: inline-block;
-            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.1), transparent);
-            padding: 10px 30px;
+            background: linear-gradient(90deg, rgba(255,215,0,0) 0%, rgba(255,215,0,0.06) 50%, rgba(255,215,0,0) 100%);
+            padding: 12px 35px;
             border-radius: 50px;
-            border: 1px solid rgba(255,215,0,0.2);
+            border: 1px solid rgba(255,215,0,0.15);
             color: var(--gold);
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Shimmering effect on badge */
+        .dev-badge::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.2), transparent);
+            transition: 0.5s;
+            transform: skewX(-25deg);
+        }
+
+        .dev-badge:hover::after {
+            left: 150%;
+            transition: 0.7s;
+        }
+
+        .dev-badge:hover {
+            border-color: var(--gold);
+            box-shadow: 0 0 15px var(--gold-glow);
+            text-shadow: 0 0 5px rgba(255,215,0,0.5);
+        }
+
+        .unit-text {
+            margin-top: 25px; 
+            font-size: 0.85rem; 
+            color: rgba(255,255,255,0.3); 
+            letter-spacing: 4px;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -301,118 +263,70 @@
         </header>
 
         <div class="grid">
-            <div class="card video-card" data-aos="fade-up" data-aos-delay="100" onclick="openModal('video-popup')">
-                <div class="img-container">
-                    <img src="https://i.ytimg.com/vi/SBRWnqemVJU/hqdefault.jpg" alt="Vesak Video">
+            <!-- Card 1 -->
+            <div class="card" data-aos="fade-up" data-aos-delay="100">
+                <div class="card-img-wrapper">
+                    <img src="https://i.ytimg.com/vi/hduMQXJkELU/hqdefault.jpg" alt="Birth">
                 </div>
                 <h3>බෝසත් උත්පත්තිය</h3>
                 <p>ලුම්බිණි සල් උයනේ සිදු වූ ඒ උතුම් ආශ්චර්යය සහ වෙසක් පොහෝ දිනක ලොවට සිදුවූ මහා ආලෝකය...</p>
             </div>
             
-            <div class="card" data-aos="fade-up" data-aos-delay="200" onclick="openModal('enlightenment-popup')">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9sWNfP1QWfxzlxtVKFtkSSEMgV-xieoE_4w&s" alt="Enlightenment">
+            <!-- Card 2 -->
+            <div class="card" data-aos="fade-up" data-aos-delay="200">
+                <div class="card-img-wrapper">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9sWNfP1QWfxzlxtVKFtkSSEMgV-xieoE_4w&s" alt="Enlightenment">
+                </div>
                 <h3>ලොව්තුරා බුද්ධත්වය</h3>
-                <p>බුද්ධගයාවේදී මාර පරාජය කර... (සම්පූර්ණ විස්තරය කියවීමට ක්ලික් කරන්න)</p>
+                <p>බුද්ධගයාවේදී මාර පරාජය කර චතුරාර්ය සත්‍යය අවබෝධ කර ගනිමින් බුදු වූ ඒ උතුම් මොහොත...</p>
             </div>
 
-            <div class="card" data-aos="fade-up" data-aos-delay="300" onclick="openModal('parinirvana-popup')">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyqDaEsdklzgsFnBcB_8OMlNdkgVckCs2ZPg&s" alt="Parinirvana">
+            <!-- Card 3 -->
+            <div class="card" data-aos="fade-up" data-aos-delay="300">
+                <div class="card-img-wrapper">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyqDaEsdklzgsFnBcB_8OMlNdkgVckCs2ZPg&s" alt="Parinirvana">
+                </div>
                 <h3>මහා පිරිනිවන් පෑම</h3>
-                <p>කුසිනාරා නුවරදී සංස්කාර... (සම්පූර්ණ විස්තරය කියවීමට ක්ලික් කරන්න)</p>
+                <p>කුසිනාරා නුවරදී සංස්කාර ධර්මයන්ගේ අනිත්‍යතාව පසක් කරමින් පිරිනිවන් පෑ ඒ උතුම් ශාන්තිය...</p>
             </div>
         </div>
 
         <footer>
             <a href="#" class="dev-badge">M.U.R.D.D. Fonseka</a>
-            <p style="margin-top: 20px; font-size: 0.8rem; color: #555; letter-spacing: 3px;">G.C.C. MEDIA UNIT & ICT CLUB</p>
+            <p class="unit-text">G.C.C. MEDIA UNIT & ICT CLUB</p>
         </footer>
-    </div>
-
-    <div id="video-popup" class="modal" onclick="closeModal(event, 'video-popup')">
-        <div class="modal-content video-content">
-            <span class="close-btn" onclick="closeModal(null, 'video-popup')">&times;</span>
-            <div class="video-box">
-                <iframe id="yt-player" src="https://www.youtube.com/embed/SBRWnqemVJU?enablejsapi=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
-
-    <div id="enlightenment-popup" class="modal" onclick="closeModal(event, 'enlightenment-popup')">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal(null, 'enlightenment-popup')">&times;</span>
-            <h2>ලොව්තුරා බුද්ධත්වය</h2>
-            <div class="modal-body">
-                <p>ගෞතම බුදුරජාණන් වහන්සේ ලොව්තුරා බුද්ධත්වයට පත්වීම යනු ලෝකයේ ස්වභාවය හා දුකින් මිදීමේ මග වන චතුරාර්ය සත්‍යය අවබෝධ කර ගැනීමයි. උන්වහන්සේ දීර්ඝ කාලයක් පාරමිතා සම්පූර්ණ කර, වෙසක් පුර පසළොස්වකදා බුද්ධගයාවේදී ආනාපානසති භාවනාවෙන් මාර බල පරාජය කොට උතුම් සම්බුද්ධත්වයට පත් වූ සේක.</p>
-                <h4>බුදුවීම හා ඒ ආශ්‍රිත කරුණු</h4>
-                <ul>
-                    <li><strong>මධ්‍යම ප්‍රතිපදාව අනුගමනය කිරීම:</strong> දැඩි දුෂ්කර ක්‍රියා අත්හැර, සිත එකඟ කරගනිමින් ආනාපානසති භාවනාව ඔස්සේ මධ්‍යම ප්‍රතිපදාව අනුගමනය කිරීම.</li>
-                    <li><strong>මාර පරාජය:</strong> බුද්ධත්වය වැළැක්වීමට පැමිණි මාරයාගේ සේනා දසවිධ බාධක ජය ගනිමින් මාරයා පරාජය කිරීම.</li>
-                </ul>
-                <h4>බුද්ධත්වයේදී අවබෝධ කරගත් ප්‍රධාන කරුණු</h4>
-                <p>එදින රාත්‍රියේ සිද්ධාර්ථ තවුසාණන් විසින් ප්‍රධානතම ඥාන තුනක් ලබමින් සම්බුද්ධත්වයට පත් විය.</p>
-                <ol>
-                    <li><strong>පූර්වේනිවාසානුස්මෘති ඥානය:</strong> පෙර විසූ ආත්ම භාවයන් පිළිබඳව සිහිපත් කිරීමේ හැකියාව.</li>
-                    <li><strong>චුතූපපාත ඥානය:</strong> සත්වයන්ගේ චුත වීම සහ නැවත ඉපදීම පිළිබඳව අවබෝධය.</li>
-                    <li><strong>ආසවක්ඛය ඥානය:</strong> සියලු කෙලෙස් නසා දුකෙන් මිදීමේ මාර්ගය වන චතුරාර්ය සත්‍යය අවබෝධ කර ගැනීම.</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-
-    <div id="parinirvana-popup" class="modal" onclick="closeModal(event, 'parinirvana-popup')">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal(null, 'parinirvana-popup')">&times;</span>
-            <h2>මහා සම්බුද්ධ පරිනිර්වාණය</h2>
-            <div class="modal-body">
-                <p>අසුවස් එළඹි අප ගෞතම බුදුරාජාණන් වහන්සේ කුසිනාරා නුවර මල්ල රජ දරුවන්ගේ උපවත්තන සල් උයනෙහිදී වෙසක් පුන් පොහෝදා පිරිනිවන් පා වදාළ සේක.</p>
-                <h4>පරිනිර්වාණ මංචකය වෙත වැඩමවීම</h4>
-                <p>හිරණ්‍යවතී ගංගාව තරණය කර කුසිනාරා නුවරට වැඩියහ. විඩාවත්, රෝගී තත්ත්වයත් නිසා උපවත්තන සල් උයනෙහි අනඳ තෙරුන් ලවා සැකසූ සයනයෙහි සිංහ සෙයියාවෙන් සැතපුණු සේක.</p>
-                <h4>අවසාන බුදු වදන</h4>
-                <p style="background: rgba(255,215,0,0.05); padding: 15px; border-left: 3px solid var(--gold); font-style: italic;">"හන්දදානි භික්ඛවේ ආමන්තයාමි වෝ වයධම්මා සංඛාරා අප්පමාදේන සම්පාදේථා" (මහණෙනි, සියලු සංස්කාර ධර්මයෝ නැසෙන සුලුය. නොපමාව කුසල් දමෙහි යෙදෙන්න)</p>
-                <p>මෙලෙසින් අවසාන බුදු වදන වදාරා වෙසක් පුනු පොහෝදා අපවත් වූ සේක.</p>
-            </div>
-        </div>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
+        // AOS Animation Initialize
+        AOS.init({ 
+            duration: 1200, 
+            once: true,
+            easing: 'ease-out-cubic'
+        });
 
-        // Generate Pahan
+        // Generate Pahan (Floating Lights)
         const container = document.getElementById('pahanContainer');
         function createPahan() {
-            for (let i = 0; i < 40; i++) {
+            const pahanCount = 35; // Slight reduction for better performance & clean look
+            for (let i = 0; i < pahanCount; i++) {
                 const pahan = document.createElement('div');
                 pahan.className = 'pahan';
                 pahan.style.left = Math.random() * 100 + 'vw';
-                pahan.style.animationDuration = (Math.random() * 8 + 6) + 's';
-                pahan.style.animationDelay = Math.random() * 10 + 's';
-                pahan.style.opacity = Math.random();
+                pahan.style.animationDuration = (Math.random() * 8 + 8) + 's'; // Slightly slower for smooth look
+                pahan.style.animationDelay = Math.random() * 12 + 's';
+                pahan.style.opacity = Math.random() * 0.6 + 0.2; // Avoid completely invisible ones
+                
+                // Randomize sizes slightly for depth
+                const size = Math.random() * 3 + 3; 
+                pahan.style.width = size + 'px';
+                pahan.style.height = size + 'px';
+                
                 container.appendChild(pahan);
             }
         }
         createPahan();
-
-        // Modal Open
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Modal Close
-        function closeModal(event, modalId) {
-            if (!event || event.target.classList.contains('modal') || event.target.classList.contains('close-btn')) {
-                const modal = document.getElementById(modalId);
-                modal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-                
-                if (modalId === 'video-popup') {
-                    const iframe = document.getElementById('yt-player');
-                    const src = iframe.src;
-                    iframe.src = src; // Stop video play on close
-                }
-            }
-        }
     </script>
 </body>
 </html>
